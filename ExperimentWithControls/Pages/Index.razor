@@ -9,7 +9,7 @@
             Enter Text:
         </div>
         <div class="col-sm-6">
-            <input type="text" placeholder="Enter Text" @onchange="UpdateValue"/>
+            <input type="text" placeholder="Enter Text" @onchange="UpdateNumericValue"/>
         </div>
     </div>
     <div class="row mt-2">
@@ -18,6 +18,18 @@
         </div>
         <div class="col-sm-6">
             <input type="range" @onchange="UpdateValue"/>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-sm-6">Click a button</div>
+        <div class="col-sm-6 btn-group" role="group">
+            @for (var buttonNumber = 1; buttonNumber <= 6; buttonNumber++)
+            {
+                string valueToDisplay = $"Button #{buttonNumber}";
+                <button type="button" class="btn-group btn-secondary" @onclick="() => ButtonClick(valueToDisplay)">
+            @buttonNumber
+                </button>
+            }
         </div>
     </div>
     <div class="row mt-5">
@@ -30,6 +42,18 @@
     private void UpdateValue(ChangeEventArgs e)
     {
         DisplayValue = e.Value.ToString();
+    }
+
+    private void UpdateNumericValue(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value.ToString(), out int result))
+        {
+            DisplayValue = e.Value.ToString();
+        }
+    }
+    private void ButtonClick(string displayValue)
+    {
+        DisplayValue = displayValue;
     }
 }
 
